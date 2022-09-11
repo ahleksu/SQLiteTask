@@ -1,8 +1,11 @@
 package com.example.sqlitetask;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -17,8 +20,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_TITLE = "book_title";
     private static final String COLUMN_AUTHOR = "book_author";
     private static final String COLUMN_ISBN = "isbn";
-    private static final String COLUMN_AVAILABILITY = "availability";
-    private static final String COLUMN_BORROWER = "book_borrower";
     private static final String COLUMN_DESCRIPTION = "book_description";
 
 
@@ -35,8 +36,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_TITLE + " TEXT, " +
                 COLUMN_AUTHOR + " TEXT, " +
                 COLUMN_ISBN + " TEXT, " +
-                COLUMN_AVAILABILITY + " BOOLEAN, " +
-                COLUMN_BORROWER + " TEXT, " +
                 COLUMN_DESCRIPTION + " TEXT);";
         sqLiteDatabase.execSQL(query);
 
@@ -47,4 +46,32 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
+
+    void addBook(String book_title, String author, String isbn, String description){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_TITLE, book_title);
+        cv.put(COLUMN_AUTHOR, author);
+        cv.put(COLUMN_ISBN, isbn);
+        cv.put(COLUMN_DESCRIPTION, description);
+        long result = db.insert(TABLE_NAME,null, cv);
+        if(result == -1){
+            Toast.makeText(context, "Book addition failed!", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context, "Book added successfully!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    Cursor readAllData(){
+        String query = "SELECT * FROM " + TABLE_NAME;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if(db != null){
+            cursor = db.rawQuery(query, null);
+        }
+        return cursor;
+    }
+
 }
