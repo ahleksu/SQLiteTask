@@ -9,31 +9,29 @@ import android.widget.EditText;
 
 public class AddActivity extends AppCompatActivity {
 
-    EditText bookTitleInput, authorInput, isbnInput, descriptionInput;
-    Button addBtn;
+    EditText title_input, author_input, isbn_input, desc_input;
+    Button add_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
-        bookTitleInput = findViewById(R.id.book_title);
-        authorInput = findViewById(R.id.book_author);
-        isbnInput = findViewById(R.id.book_isbn);
-        descriptionInput = findViewById(R.id.book_description);
-        addBtn = findViewById(R.id.add_btn);
-        addBtn.setOnClickListener(new View.OnClickListener() {
+        title_input = findViewById(R.id.title_input);
+        author_input = findViewById(R.id.author_input);
+        isbn_input = findViewById(R.id.isbn_input);
+        desc_input = findViewById(R.id.desc_input);
+        add_button = findViewById(R.id.add_button);
+        add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MyDatabaseHelper myDB = new MyDatabaseHelper(AddActivity.this);
-                myDB.addBook(
-                        bookTitleInput.getText().toString().trim(),
-                        authorInput.getText().toString().trim(),
-                        isbnInput.getText().toString().trim(),
-                        descriptionInput.getText().toString().trim());
+                myDB.addBook(title_input.getText().toString().trim(),
+                        author_input.getText().toString().trim(),
+                        Integer.valueOf(isbn_input.getText().toString().trim()),
+                        desc_input.getText().toString().trim()
+                        );
             }
         });
-
-
     }
 }

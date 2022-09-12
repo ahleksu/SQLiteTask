@@ -1,9 +1,9 @@
 package com.example.sqlitetask;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
@@ -33,9 +34,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         this.book_author = book_author;
         this.book_isbn = book_isbn;
         this.book_desc = book_desc;
-
     }
-
 
     @NonNull
     @Override
@@ -45,27 +44,29 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         return new MyViewHolder(view);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         holder.book_id_txt.setText(String.valueOf(book_id.get(position)));
         holder.book_title_txt.setText(String.valueOf(book_title.get(position)));
         holder.book_author_txt.setText(String.valueOf(book_author.get(position)));
         holder.book_isbn_txt.setText(String.valueOf(book_isbn.get(position)));
         holder.book_desc_txt.setText(String.valueOf(book_desc.get(position)));
-
-//        Recyclerview onClickListener
-       holder.mainLayout.setOnClickListener(new View.OnClickListener() {
-           @Override
+        //Recyclerview onClickListener
+        holder.mainLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, UpdateActivity.class);
                 intent.putExtra("id", String.valueOf(book_id.get(position)));
                 intent.putExtra("title", String.valueOf(book_title.get(position)));
                 intent.putExtra("author", String.valueOf(book_author.get(position)));
-                intent.putExtra("isbn ", String.valueOf(book_isbn.get(position)));
+                intent.putExtra("isbn", String.valueOf(book_isbn.get(position)));
                 intent.putExtra("desc", String.valueOf(book_desc.get(position)));
                 activity.startActivityForResult(intent, 1);
             }
         });
+
+
     }
 
     @Override
@@ -73,7 +74,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         return book_id.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView book_id_txt, book_title_txt, book_author_txt, book_isbn_txt, book_desc_txt;
         LinearLayout mainLayout;
@@ -86,10 +87,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             book_isbn_txt = itemView.findViewById(R.id.book_isbn_txt);
             book_desc_txt = itemView.findViewById(R.id.book_desc_txt);
             mainLayout = itemView.findViewById(R.id.mainLayout);
-
             //Animate Recyclerview
             Animation translate_anim = AnimationUtils.loadAnimation(context, R.anim.translate_anim);
             mainLayout.setAnimation(translate_anim);
         }
+
     }
+
 }

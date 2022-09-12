@@ -5,23 +5,22 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 
-public class MyDatabaseHelper extends SQLiteOpenHelper {
+class MyDatabaseHelper extends SQLiteOpenHelper {
 
     private Context context;
-    private static final String DATABASE_NAME = "BookApp.db";
+    private static final String DATABASE_NAME = "BookLibrary.db";
     private static final int DATABASE_VERSION = 1;
 
-    private static final String TABLE_NAME = "my_books";
+    private static final String TABLE_NAME = "my_library";
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_TITLE = "book_title";
     private static final String COLUMN_AUTHOR = "book_author";
-    private static final String COLUMN_ISBN = "isbn";
-    private static final String COLUMN_DESCRIPTION = "book_description";
-
+    private static final String COLUMN_ISBN = "book_isbn";
+    private static final String COLUMN_DESC = "book_desc";
 
     MyDatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -29,37 +28,34 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
-
+    public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + TABLE_NAME +
                 " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_TITLE + " TEXT, " +
                 COLUMN_AUTHOR + " TEXT, " +
-                COLUMN_ISBN + " TEXT, " +
-                COLUMN_DESCRIPTION + " TEXT);";
-        sqLiteDatabase.execSQL(query);
-
+                COLUMN_ISBN + " INTEGER, " +
+                COLUMN_DESC + " TEXT);";
+        db.execSQL(query);
     }
-
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-        onCreate(sqLiteDatabase);
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        onCreate(db);
     }
 
-    void addBook(String book_title, String author, String isbn, String description){
+    void addBook(String title, String author, int isbn, String desc){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put(COLUMN_TITLE, book_title);
+        cv.put(COLUMN_TITLE, title);
         cv.put(COLUMN_AUTHOR, author);
         cv.put(COLUMN_ISBN, isbn);
-        cv.put(COLUMN_DESCRIPTION, description);
+        cv.put(COLUMN_DESC, desc);
         long result = db.insert(TABLE_NAME,null, cv);
         if(result == -1){
-            Toast.makeText(context, "Book addition failed!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
         }else {
-            Toast.makeText(context, "Book added successfully!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Added Successfully!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -80,7 +76,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_TITLE, title);
         cv.put(COLUMN_AUTHOR, author);
         cv.put(COLUMN_ISBN, isbn);
-        cv.put(COLUMN_DESCRIPTION, desc);
+        cv.put(COLUMN_DESC, desc);
 
         long result = db.update(TABLE_NAME, cv, "_id=?", new String[]{row_id});
         if(result == -1){
