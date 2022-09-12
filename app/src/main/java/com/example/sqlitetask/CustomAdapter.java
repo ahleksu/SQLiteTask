@@ -52,19 +52,19 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         holder.book_isbn_txt.setText(String.valueOf(book_isbn.get(position)));
         holder.book_desc_txt.setText(String.valueOf(book_desc.get(position)));
 
-        //Recyclerview onClickListener
-//        holder.mainLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(context, UpdateActivity.class);
-//                intent.putExtra("id", String.valueOf(book_id.get(position)));
-//                intent.putExtra("title", String.valueOf(book_title.get(position)));
-//                intent.putExtra("author", String.valueOf(book_author.get(position)));
-//                intent.putExtra("pages", String.valueOf(book_isbn.get(position)));
-//                intent.putExtra("pages", String.valueOf(book_desc.get(position)));
-//                activity.startActivityForResult(intent, 1);
-//            }
-//        });
+//        Recyclerview onClickListener
+       holder.mainLayout.setOnClickListener(new View.OnClickListener() {
+           @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, UpdateActivity.class);
+                intent.putExtra("id", String.valueOf(book_id.get(position)));
+                intent.putExtra("title", String.valueOf(book_title.get(position)));
+                intent.putExtra("author", String.valueOf(book_author.get(position)));
+                intent.putExtra("pages", String.valueOf(book_isbn.get(position)));
+                intent.putExtra("pages", String.valueOf(book_desc.get(position)));
+                activity.startActivityForResult(intent, 1);
+            }
+        });
     }
 
     @Override
