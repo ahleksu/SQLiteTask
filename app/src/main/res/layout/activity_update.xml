@@ -10,7 +10,9 @@
         android:id="@+id/book_title2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="116dp"
+        android:layout_marginStart="99dp"
+        android:layout_marginTop="184dp"
+        android:layout_marginEnd="99dp"
         android:ems="10"
         android:fontFamily="monospace"
         android:hint="@string/book_title"
@@ -18,7 +20,7 @@
         android:textSize="24sp"
         android:typeface="normal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="99dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="99dp"
         android:ems="10"
         android:fontFamily="monospace"
@@ -35,7 +37,7 @@
         android:inputType="textPersonName"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/book_title2" />
 
@@ -43,14 +45,13 @@
         android:id="@+id/book_isbn2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="30dp"
         android:ems="10"
         android:fontFamily="monospace"
         android:hint="@string/isbn"
         android:inputType="textPersonName"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/book_author2" />
 
@@ -58,30 +59,44 @@
         android:id="@+id/book_description2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:ems="10"
         android:fontFamily="monospace"
         android:hint="@string/description"
         android:inputType="textPersonName"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/book_isbn2" />
 
     <Button
-        android:id="@+id/update_btn2"
+        android:id="@+id/update_btn"
         android:layout_width="300dp"
         android:layout_height="70dp"
         android:layout_marginTop="24dp"
         android:fontFamily="sans-serif-smallcaps"
-        android:text="upddate"
+        android:text="Update"
         android:textAllCaps="false"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/book_description2" />
+
+    <Button
+        android:id="@+id/delete_btn"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="Delete"
+        android:textAllCaps="false"
+        android:textColor="#FF0000"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/update_btn" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
